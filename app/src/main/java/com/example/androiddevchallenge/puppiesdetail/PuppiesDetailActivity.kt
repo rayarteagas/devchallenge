@@ -22,10 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -68,32 +65,23 @@ class PuppiesDetailActivity : AppCompatActivity() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun PuppyInfo(puppyData: PuppyData, puppy: Puppy) {
-        MovieItem(puppy)
-    }
-
-    @Composable
-    fun MovieItem(puppy: Puppy) {
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            MovieTitle(
-                puppy.name,
-                modifier = Modifier.weight(1f)
-            )
-            MovieImage(
+        Column (Modifier.fillMaxWidth().fillMaxHeight().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally){
+            PuppyPhoto(
                 puppy.photoUrl,
-                modifier = Modifier.padding(start = 16.dp)
-            )
+            Modifier.fillMaxWidth().wrapContentHeight())
+            Text(text = "Name: ${puppy.name}")
+            Text(text = "Age: ${puppyData.ageInDays} days")
+                Text(text = "Bread: ${puppyData.bread}")
+                Text(text = "Weaned: ${if(puppyData.weaned) "Yes" else "No"}")
         }
     }
 
+
     @OptIn(ExperimentalAnimationApi::class)
     @Composable
-    fun MovieImage(
+    fun PuppyPhoto(
         imageUrl: String,
         modifier: Modifier = Modifier
     ) {

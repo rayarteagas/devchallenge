@@ -23,18 +23,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +51,7 @@ import com.example.androiddevchallenge.models.Puppy
 import com.example.androiddevchallenge.puppiesdetail.PuppiesDetailActivity
 import com.example.androiddevchallenge.ui.theme.PuppiesTheme
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 
 @ExperimentalPagingApi
 class PuppiesListActivity : AppCompatActivity() {
@@ -75,7 +75,19 @@ class PuppiesListActivity : AppCompatActivity() {
     @Composable
     fun PuppiesList(puppies: Flow<PagingData<Puppy>>) {
         val lazyPuppyItems: LazyPagingItems<Puppy> = puppies.collectAsLazyPagingItems()
-        LazyColumn {
+        LazyColumn (Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)){
+            item {
+                TopAppBar(
+                    title = {
+                        Text(text = "Pick your puppy!")
+                    },
+                    backgroundColor = MaterialTheme.colors.primary,
+                    contentColor = MaterialTheme.colors.onPrimary,
+                    elevation = 12.dp
+                )
+            }
             items(lazyPuppyItems) { puppy ->
                 PuppyItem(puppy!!)
             }
@@ -84,27 +96,29 @@ class PuppiesListActivity : AppCompatActivity() {
 
     @Composable
     fun PuppyItem(puppy: Puppy) {
+Card (elevation = 8.dp){
+    Column(
+        modifier = Modifier
+            .clickable {
+                startActivity(
+                    Intent(
+                        this@PuppiesListActivity,
+                        PuppiesDetailActivity::class.java
+                    ).putExtra("puppyId", puppy.id)
+                )
+            },
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        MovieTitle(
+            puppy.name,
+        Modifier.padding(8.dp, 8.dp))
+        MovieImage(
+            puppy.photoUrl
+        )
+    }
+}
 
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp)
-                .fillMaxWidth()
-                .clickable {
-                    startActivity(Intent(this@PuppiesListActivity, PuppiesDetailActivity::class.java).putExtra("puppyId", puppy.id))
-                },
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            MovieTitle(
-                puppy.name,
-                modifier = Modifier.weight(1f)
-            )
-            MovieImage(
-                puppy.photoUrl,
-                modifier = Modifier
-                    .padding(start = 16.dp)
-            )
-        }
     }
 
     @OptIn(ExperimentalAnimationApi::class)
@@ -141,13 +155,5 @@ class PuppiesListActivity : AppCompatActivity() {
     fun Greeting(name: String) {
         Text(text = "Hello $name!", Modifier.padding(50.dp))
         Text(text = "Hello $name!")
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        PuppiesTheme {
-            Greeting("Android")
-        }
     }
 }

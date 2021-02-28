@@ -16,7 +16,9 @@
 package com.example.androiddevchallenge
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.paging.ExperimentalPagingApi
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.androiddevchallenge.puppieslist.PuppiesListActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,8 +30,9 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+    @OptIn(ExperimentalPagingApi::class)
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<MainActivity>()
+    val composeTestRule = createAndroidComposeRule<PuppiesListActivity>()
 
     @Test
     fun sampleTest() {

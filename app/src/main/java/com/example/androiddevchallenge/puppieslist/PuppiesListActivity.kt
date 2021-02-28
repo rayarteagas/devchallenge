@@ -74,16 +74,16 @@ class PuppiesListActivity : AppCompatActivity() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun PuppiesList(puppies: Flow<PagingData<Puppy>>) {
-        val lazyMovieItems: LazyPagingItems<Puppy> = puppies.collectAsLazyPagingItems()
+        val lazyPuppyItems: LazyPagingItems<Puppy> = puppies.collectAsLazyPagingItems()
         LazyColumn {
-            items(lazyMovieItems) { puppy ->
-                MovieItem(puppy!!)
+            items(lazyPuppyItems) { puppy ->
+                PuppyItem(puppy!!)
             }
         }
     }
 
     @Composable
-    fun MovieItem(puppy: Puppy) {
+    fun PuppyItem(puppy: Puppy) {
 
         Row(
             modifier = Modifier

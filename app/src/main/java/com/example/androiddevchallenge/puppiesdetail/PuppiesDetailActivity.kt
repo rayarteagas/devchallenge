@@ -22,7 +22,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -65,19 +70,21 @@ class PuppiesDetailActivity : AppCompatActivity() {
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
     fun PuppyInfo(puppyData: PuppyData, puppy: Puppy) {
-        Column (Modifier.fillMaxWidth().fillMaxHeight().padding(16.dp),
+        Column(
+            Modifier.fillMaxWidth().fillMaxHeight().padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally){
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             PuppyPhoto(
                 puppy.photoUrl,
-            Modifier.fillMaxWidth().wrapContentHeight())
+                Modifier.fillMaxWidth().wrapContentHeight()
+            )
             Text(text = "Name: ${puppy.name}")
             Text(text = "Age: ${puppyData.ageInDays} days")
-                Text(text = "Bread: ${puppyData.bread}")
-                Text(text = "Weaned: ${if(puppyData.weaned) "Yes" else "No"}")
+            Text(text = "Bread: ${puppyData.bread}")
+            Text(text = "Weaned: ${if (puppyData.weaned) "Yes" else "No"}")
         }
     }
-
 
     @OptIn(ExperimentalAnimationApi::class)
     @Composable

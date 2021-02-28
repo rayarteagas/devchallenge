@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.api
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
-import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.models.Puppy
+import com.example.androiddevchallenge.models.PuppyData
 
-val Shapes = Shapes(
-    small = RoundedCornerShape(4.dp),
-    medium = RoundedCornerShape(4.dp),
-    large = RoundedCornerShape(0.dp)
-)
+interface PuppiesService {
+    suspend fun getPuppiesList(): List<Puppy>
+    suspend fun getPuppiesList(minId: Long, pageSize: Int): List<Puppy>
+    suspend fun getPuppyData(puppyId: Long): PuppyData
+}

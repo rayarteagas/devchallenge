@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.puppieslist
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.cachedIn
+import com.example.androiddevchallenge.data.PuppiesRepository
 
-val Shapes = Shapes(
-    small = RoundedCornerShape(4.dp),
-    medium = RoundedCornerShape(4.dp),
-    large = RoundedCornerShape(0.dp)
-)
+@ExperimentalPagingApi
+class PuppiesListViewModel(private val repository: PuppiesRepository) : ViewModel() {
+    fun getPuppiesList() = repository.getPuppiesStream().cachedIn(viewModelScope)
+}

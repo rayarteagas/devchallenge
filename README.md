@@ -4,6 +4,8 @@
 <!--- You can find both of these in the url bar when you open your repository in github. -->
 ![Workflow result](https://github.com/rayarteagas/devchallenge/workflows/Check/badge.svg)
 
+[![Contact me on Codementor](https://www.codementor.io/m-badges/raymondarteagasanchez/im-a-cm-b.svg)](https://www.codementor.io/@raymondarteagasanchez?refer=badge)
+
 
 ## :scroll: Description
 Pick a puppy, know him better... and keep the desire of getting it to your home forever
